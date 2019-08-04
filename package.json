@@ -1,0 +1,31 @@
+{
+  "name": "graphql-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/typescript/bin/tsc",
+    "dev": "node ./build/server.js",
+    "start-dev": "npm run build && npm run dev",
+    "tslint": "./node_modules/tslint/bin/tslint --project '.'",
+    "tslint-fix": "./node_modules/tslint/bin/tslint --project '.' --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.4.2",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.7.7",
+    "type-graphql": "^0.17.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/express-graphql": "^0.8.0",
+    "@types/node": "^12.6.9",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
+}
