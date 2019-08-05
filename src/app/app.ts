@@ -20,8 +20,5 @@ export default async (): Promise<express.Application> => {
         }),
       );
 
-    return useExpressServer(app, {
-        routePrefix: '/api/v1',
-        controllers: [__dirname + '/../controllers/*.js'],
-    });
+    return useExpressServer(app);
 };
