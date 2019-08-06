@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import 'reflect-metadata';
-import { useExpressServer } from 'routing-controllers';
 import { buildSchema } from 'type-graphql';
+import { Container } from 'typedi';
 
 export default async (): Promise<express.Application> => {
 
@@ -10,6 +10,7 @@ export default async (): Promise<express.Application> => {
 
     const schema = await buildSchema({
         resolvers: [__dirname + '/../resolvers/*.js'],
+        container: Container,
     });
 
     app.use(
@@ -20,5 +21,5 @@ export default async (): Promise<express.Application> => {
         }),
       );
 
-    return useExpressServer(app);
+    return app;
 };
