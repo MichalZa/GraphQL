@@ -2,6 +2,7 @@ import { Service } from 'typedi';
 import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { Building } from '../entity/Building';
+import { BuildingInput } from '../resolvers/types/BuildingInput';
 
 @Service()
 export class BuildingService {
@@ -10,5 +11,15 @@ export class BuildingService {
 
     public listAll(): Promise<Building[]> {
         return this.buildingRepository.find();
+    }
+
+    public create(buildingInput: BuildingInput): Promise<Building> {
+        return this.buildingRepository.save({
+            city: buildingInput.city,
+        });
+    }
+
+    public findById(id: number): Promise<Building> {
+        return this.buildingRepository.findOne(id);
     }
 }

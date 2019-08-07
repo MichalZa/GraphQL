@@ -1,0 +1,11 @@
+{
+    "database": {
+        "type": "mysql",
+        "host" : "mysql_host",
+        "port": 3306,
+        "username": "graph",
+        "password": "graph!!33@",
+        "database": "graphql_project",
+        "charset": "UTF8_GENERAL_CI"
+    }
+}

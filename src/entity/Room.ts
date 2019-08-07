@@ -22,6 +22,6 @@ export class Room {
     @Column()
     public floor: number;
 
-    @ManyToOne(type => Building, building => building.rooms)
+    @ManyToOne(type => Building, building => building.rooms, { nullable: false })
     public building: Building;
 }
