@@ -7,5 +7,9 @@
         "password": "graph!!33@",
         "database": "graphql_project",
         "charset": "UTF8_GENERAL_CI"
+    },
+    "winston": {
+        "filename": "./logs/error.log",
+        "level": "info"
     }
 }

@@ -4,10 +4,12 @@ import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 import { useContainer } from 'typeorm';
+import { ErrorHandler } from '../common/error/ErrorHandler';
 import { authMiddleware } from '../middleware/AuthMiddleware';
 import { errorHandlerMiddleware } from '../middleware/ErrorHandlerMiddleware';
 import config from './config';
 import database from './database';
+import logger from './logger';
 
 export default async (): Promise<express.Application> => {
 
@@ -15,13 +17,15 @@ export default async (): Promise<express.Application> => {
 
     config();
 
-    // const errorHandler = diContainer.get(ErrorHandler);
+    logger();
+
+    const errorHandler = Container.get(ErrorHandler);
 
     process.on('unhandledRejection', (error: any) => {
       throw error;
     });
     process.on('uncaughtException', (error: any) => {
-      console.log('i have that');
+      errorHandler.handle(error);
     });
 
     await database();
