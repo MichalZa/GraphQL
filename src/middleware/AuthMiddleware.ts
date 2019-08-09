@@ -7,15 +7,15 @@ export const authMiddleware = async (req: any, res: any, next: any) => {
 
     const requestToken: string = req.headers.authorization;
 
-    if (!requestToken) {
-        next(new AuthError('Invalid token'));
-    }
+    // if (!requestToken) {
+    //     next(new AuthError('Invalid token'));
+    // }
 
-    const jwtService: JwtService = Container.get(JwtService);
+    // const jwtService: JwtService = Container.get(JwtService);
 
-    const tokenUser: User = await jwtService.getTokenUser(requestToken);
+    // const tokenUser: User = await jwtService.getTokenUser(requestToken);
 
-    req.currentUser = tokenUser;
+    // req.currentUser = tokenUser;
 
     next();
 };

@@ -1,5 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Room } from './Room';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Desk } from './Desk';
 
 @Entity()
 export class User {
@@ -21,6 +21,6 @@ export class User {
     })
     public role: string[];
 
-    @ManyToOne(type => Room, room => room.users)
-    public room: Room;
+    @OneToOne(type => Desk, desk => desk.user)
+    public desk: Desk;
 }

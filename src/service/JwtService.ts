@@ -1,6 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import * as conf from 'nconf';
 import { Repository } from 'typeorm';
+import NotFoundError from '../common/error/type/NotFoundError';
 import { User } from '../entity/User';
 
 export class JwtService {
@@ -14,7 +15,7 @@ export class JwtService {
         userRepository.findOne({ email: verifiedToken.email });
 
         if (!user) {
-            throw new Error('User does not exist');
+            throw new NotFoundError('User does not exist');
         }
 
         return user;

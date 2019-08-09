@@ -1,6 +1,7 @@
 import { Service } from 'typedi';
 import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
+import NotFoundError from '../common/error/type/NotFoundError';
 import { Building } from '../entity/Building';
 import { Room } from '../entity/Room';
 import { RoomInput } from '../resolvers/types/RoomInput';
@@ -24,7 +25,7 @@ export class RoomService {
         const building: Building = await this.buildingService.findById(roomInput.buildingId);
 
         if (!building) {
-            throw new Error('Invalid building ID');
+            throw new NotFoundError('Building not found');
         }
 
         const room: Room = this.roomRepository.create({

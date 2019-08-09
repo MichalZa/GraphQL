@@ -1,11 +1,11 @@
 import AppError from './AppError';
 
-export default class AuthError extends AppError {
+export default class NotFoundError extends AppError {
 
     constructor(message: string) {
         super(message);
         Error.captureStackTrace(this);
         this.isOperational = true;
-        this.httpStatusCode = 401;
+        this.httpStatusCode = 404;
     }
 }

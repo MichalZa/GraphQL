@@ -1,7 +1,7 @@
 import { Authorized, Field, Int, ID, ObjectType } from 'type-graphql';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Building } from './Building';
-import { User } from './User';
+import { Desk } from './Desk';
 
 @Entity()
 @ObjectType()
@@ -27,6 +27,6 @@ export class Room {
     @ManyToOne(type => Building, building => building.rooms, { nullable: false })
     public building: Building;
 
-    @OneToMany(type => User, user => user.room)
-    public users: User[];
+    @OneToMany(type => Desk, desk => desk.room)
+    public desks: Desk[];
 }
