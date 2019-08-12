@@ -28,7 +28,7 @@ export default async (): Promise<express.Application> => {
       errorHandler.handle(error);
     });
 
-    await database();
+    await database().catch(err => errorHandler.handle(err, false));
 
     const app = express();
 
