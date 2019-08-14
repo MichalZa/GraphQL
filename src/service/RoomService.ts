@@ -13,7 +13,11 @@ export class RoomService {
     constructor(@InjectRepository(Room) private readonly roomRepository: Repository<Room>,
                 private readonly buildingService: BuildingService) {}
 
-    public getByBuilding(building: Building): Promise<Room[]> {
+    public findById(id: number): Promise<Room> {
+        return this.roomRepository.findOne(id);
+    }
+
+    public findByBuilding(building: Building): Promise<Room[]> {
         return this.roomRepository.find({ where: { building } });
     }
 
@@ -33,6 +37,6 @@ export class RoomService {
             building,
         });
 
-        return this.roomRepository.save(room);
+        return await this.roomRepository.save(room);
     }
 }

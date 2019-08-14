@@ -21,7 +21,6 @@ export class Room {
     public type: string;
 
     @Column()
-    @Authorized()
     @Field(type => Int)
     public floor: number;
 

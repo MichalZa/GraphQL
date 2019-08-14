@@ -4,7 +4,6 @@ import { Room } from '../entity/Room';
 import { BuildingService } from '../service/BuildingService';
 import { RoomService } from '../service/RoomService';
 import { BuildingInput } from './types/BuildingInput';
-import { RoomInput } from './types/RoomInput';
 
 @Resolver(of => Building)
 export class BuildingResolver {
@@ -22,13 +21,8 @@ export class BuildingResolver {
         return this.buildingService.create(buildingInput);
     }
 
-    @Mutation(returns => Room)
-    public async createRoom(@Arg('room') roomInput: RoomInput): Promise<Room> {
-        return this.roomService.create(roomInput);
-    }
-
     @FieldResolver()
     public rooms(@Root() building: Building): Promise<Room[]> {
-        return this.roomService.getByBuilding(building);
+        return this.roomService.findByBuilding(building);
     }
 }

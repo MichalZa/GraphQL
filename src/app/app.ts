@@ -5,6 +5,7 @@ import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 import { useContainer } from 'typeorm';
 import { ErrorHandler } from '../common/error/ErrorHandler';
+import { User } from '../entity/User';
 import { authMiddleware } from '../middleware/AuthMiddleware';
 import { errorHandlerMiddleware } from '../middleware/ErrorHandlerMiddleware';
 import config from './config';
@@ -36,7 +37,7 @@ export default async (): Promise<express.Application> => {
         resolvers: [__dirname + '/../resolvers/*.js'],
         container: Container,
         authChecker: ({ root, args, context, info }, roles) => {
-          const user = context.currentUser;
+          const user: User = context.auth.user;
 
           if (!user) {
             return false;

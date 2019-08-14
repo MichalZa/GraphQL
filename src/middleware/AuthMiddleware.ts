@@ -15,7 +15,7 @@ export const authMiddleware = async (req: any, res: any, next: any) => {
 
     // const tokenUser: User = await jwtService.getTokenUser(requestToken);
 
-    // req.currentUser = tokenUser;
+    // req.auth.user = tokenUser;
 
     next();
 };

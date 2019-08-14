@@ -11,7 +11,7 @@ export class Desk {
     @PrimaryGeneratedColumn()
     public readonly id: number;
 
-    @Column()
+    @Column({ unique: true })
     @Field(type => Int)
     public internalId: number;
 
@@ -19,9 +19,9 @@ export class Desk {
     public room: Room;
 
     @JoinColumn()
-    @Field(type => User)
+    @Field(type => User, { nullable: true })
     @OneToOne(type => User, user => user.desk)
-    public user: User;
-
+    public user?: User;
+    @Column({ nullable: true })
     public userId: number;
 }
