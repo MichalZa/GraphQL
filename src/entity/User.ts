@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Desk } from './Desk';
+import { Profile } from './Profile';
 
 @Entity()
 @ObjectType()
@@ -27,4 +28,8 @@ export class User {
     @Field(type => Desk)
     @OneToOne(type => Desk, desk => desk.user)
     public desk: Desk;
+
+    @Field(type => Profile)
+    @OneToOne(type => Profile, profile => profile.user)
+    public profile: Profile;
 }

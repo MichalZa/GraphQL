@@ -11,8 +11,7 @@ export class JwtService {
     public async getTokenUser(token: string): Promise<User> {
         const verifiedToken: any = this.verify(token);
 
-        const user: User = await this.
-        userRepository.findOne({ email: verifiedToken.email });
+        const user: User = await this.userRepository.findOne({ email: verifiedToken.email });
 
         if (!user) {
             throw new NotFoundError('User does not exist');
