@@ -12,8 +12,8 @@ export class BuildingResolver {
                 private readonly roomService: RoomService) {}
 
     @Query(returns => [Building])
-    public buildings(): Promise<Building[]> {
-        return this.buildingService.listAll();
+    public buildings(@Arg('city', { nullable: true }) city?: string): Promise<Building[]> {
+        return this.buildingService.listAll(city);
     }
 
     @Mutation(returns => Building)
@@ -22,7 +22,7 @@ export class BuildingResolver {
     }
 
     @FieldResolver()
-    public rooms(@Root() building: Building): Promise<Room[]> {
-        return this.roomService.findByBuilding(building);
+    public rooms(@Root() building: Building, @Arg('type', { nullable: true }) type?: string): Promise<Room[]> {
+        return this.roomService.findByBuilding(building, type);
     }
 }

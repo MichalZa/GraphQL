@@ -9,7 +9,11 @@ export class BuildingService {
 
     constructor(@InjectRepository(Building) private readonly buildingRepository: Repository<Building>) {}
 
-    public listAll(): Promise<Building[]> {
+    public listAll(city?: string): Promise<Building[]> {
+        if (city) {
+            return this.buildingRepository.find({ city });
+        }
+
         return this.buildingRepository.find();
     }
 

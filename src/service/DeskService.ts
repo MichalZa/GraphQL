@@ -1,11 +1,9 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import NotFoundError from '../common/error/type/NotFoundError';
-import { Building } from '../entity/Building';
 import { Desk } from '../entity/Desk';
 import { Room } from '../entity/Room';
 import { DeskInput } from '../resolvers/types/DeskInput';
-import { RoomInput } from '../resolvers/types/RoomInput';
 import { RoomService } from './RoomService';
 
 export class DeskService {

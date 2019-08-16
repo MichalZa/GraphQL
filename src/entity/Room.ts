@@ -31,3 +31,7 @@ export class Room {
     @OneToMany(type => Desk, desk => desk.room)
     public desks: Desk[];
 }
+
+export const roomTypes = {
+    DEV: 'dev',
+};

@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import NotFoundError from '../common/error/type/NotFoundError';
 import { Building } from '../entity/Building';
-import { Room } from '../entity/Room';
+import { roomTypes, Room } from '../entity/Room';
 import { RoomInput } from '../resolvers/types/RoomInput';
 import { BuildingService } from './BuildingService';
 
@@ -17,7 +17,11 @@ export class RoomService {
         return this.roomRepository.findOne(id);
     }
 
-    public findByBuilding(building: Building): Promise<Room[]> {
+    public findByBuilding(building: Building, type?: string): Promise<Room[]> {
+        if (type && Object.values(roomTypes).includes(type)) {
+            return this.roomRepository.find({ where: { building, type } });
+        }
+
         return this.roomRepository.find({ where: { building } });
     }
 
