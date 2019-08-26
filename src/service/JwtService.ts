@@ -1,15 +1,22 @@
 import * as jwt from 'jsonwebtoken';
 import * as conf from 'nconf';
+import { UnauthorizedError } from 'type-graphql';
 import { Repository } from 'typeorm';
+import { InjectRepository } from 'typeorm-typedi-extensions';
+
 import NotFoundError from '../common/error/type/NotFoundError';
 import { User } from '../entity/User';
 
 export class JwtService {
 
-    constructor(private readonly userRepository: Repository<User>) {}
+    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
-    public async getTokenUser(token: string): Promise<User> {
-        const verifiedToken: any = this.verify(token);
+    public createToken(user: User): string {
+        return user.generateAuthToken();
+    }
+
+    public async getUserByToken(token: string): Promise<User> {
+        const verifiedToken: any = this.verifyToken(token);
 
         const user: User = await this.userRepository.findOne({ email: verifiedToken.email });
 
@@ -20,7 +27,11 @@ export class JwtService {
         return user;
     }
 
-    public verify(token: string): object | string {
-        return jwt.verify(token, conf.get('jwt').signature);
+    public verifyToken(token: string): object | string {
+        try {
+            return jwt.verify(token, conf.get('jwt').signature);
+        } catch (error) {
+            throw new UnauthorizedError();
+        }
     }
 }

@@ -9,7 +9,7 @@ export class ErrorHandler {
     private readonly logger: Logger;
 
     public handle(error: any, isOperational: boolean = true): void {
-        this.logger.error(JSON.stringify(error));
+        this.logger.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
         if (this.verifyIfNeedToCrash(error, isOperational)) {
             // mail service should send email to tech. support here with problem desc
             this.crash();

@@ -11,5 +11,9 @@
     "winston": {
         "filename": "./logs/error.log",
         "level": "info"
+    },
+    "jwt": {
+        "signature": "graphql1#",
+        "expiresIn": "24 hours"
     }
 }

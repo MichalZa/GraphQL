@@ -4,7 +4,6 @@ import AppError from '../common/error/type/AppError';
 import { ErrorHandler } from '../common/error/ErrorHandler';
 
 export const errorHandlerMiddleware = (error: any, req: Request, res: Response, next: any) => {
-
     const errorHandler = Container.get(ErrorHandler);
 
     errorHandler.handle(error);

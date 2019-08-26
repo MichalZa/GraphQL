@@ -1,6 +1,8 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import 'reflect-metadata';
+import { useContainer as routeUseContainer, useExpressServer } from 'routing-controllers';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 import { useContainer } from 'typeorm';
@@ -33,17 +35,22 @@ export default async (): Promise<express.Application> => {
 
     const app = express();
 
+    app.use(bodyParser.json());
+
     const schema = await buildSchema({
         resolvers: [__dirname + '/../resolvers/*.js'],
         container: Container,
         authChecker: ({ root, args, context, info }, roles) => {
-          const user: User = context.auth.user;
+          const user: User = context.user;
 
-          if (!user) {
-            return false;
-          }
+          if (user && !roles.length) {
+            return true;
+        }
+          if (user && roles.find(role => user.role.indexOf(role) !== -1)) {
+            return true;
+        }
 
-          return true;
+          return false;
         },
     });
 
@@ -57,5 +64,10 @@ export default async (): Promise<express.Application> => {
         errorHandlerMiddleware,
       );
 
-    return app;
+    routeUseContainer(Container);
+
+    return useExpressServer(app, {
+      routePrefix: 'api',
+      controllers: [__dirname + '/../controller/*.js'],
+    });
 };

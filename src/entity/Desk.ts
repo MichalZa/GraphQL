@@ -1,4 +1,4 @@
-import { Field, Int, ID, ObjectType } from 'type-graphql';
+import { Authorized, Field, Int, ID, ObjectType } from 'type-graphql';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Room } from './Room';
 import { User } from './User';
@@ -11,8 +11,9 @@ export class Desk {
     @PrimaryGeneratedColumn()
     public readonly id: number;
 
-    @Column({ unique: true })
+    @Authorized('ROLE_ADMIN')
     @Field(type => Int)
+    @Column({ unique: true })
     public internalId: number;
 
     @ManyToOne(type => Room, room => room.desks, { nullable: false })

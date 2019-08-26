@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { Authorized, Field, Int, ID, ObjectType } from 'type-graphql';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Building } from './Building';

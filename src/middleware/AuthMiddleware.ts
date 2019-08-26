@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import Container from 'typedi';
 import AuthError from '../common/error/type/AuthError';
 import { User } from '../entity/User';
@@ -7,15 +8,15 @@ export const authMiddleware = async (req: any, res: any, next: any) => {
 
     const requestToken: string = req.headers.authorization;
 
-    // if (!requestToken) {
-    //     next(new AuthError('Invalid token'));
-    // }
+    if (!requestToken) {
+        next(new AuthError('Invalid token'));
+    }
 
-    // const jwtService: JwtService = Container.get(JwtService);
+    const jwtService: JwtService = Container.get(JwtService);
 
-    // const tokenUser: User = await jwtService.getTokenUser(requestToken);
+    const tokenUser: User = await jwtService.getUserByToken(requestToken);
 
-    // req.auth.user = tokenUser;
+    req.user = tokenUser;
 
     next();
 };
